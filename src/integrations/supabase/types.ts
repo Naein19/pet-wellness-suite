@@ -14,7 +14,104 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      appointments: {
+        Row: {
+          appointment_date: string
+          created_at: string | null
+          doctor_id: string | null
+          id: string
+          notes: string | null
+          patient_id: string | null
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          appointment_date: string
+          created_at?: string | null
+          doctor_id?: string | null
+          id?: string
+          notes?: string | null
+          patient_id?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          appointment_date?: string
+          created_at?: string | null
+          doctor_id?: string | null
+          id?: string
+          notes?: string | null
+          patient_id?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointments_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "patients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patients: {
+        Row: {
+          age: number | null
+          breed: string | null
+          color: string | null
+          created_at: string | null
+          gender: string | null
+          id: string
+          medical_notes: string | null
+          name: string
+          owner_address: string | null
+          owner_email: string | null
+          owner_name: string
+          owner_phone: string
+          species: string
+          updated_at: string | null
+          vaccination_status: string | null
+          weight: number | null
+        }
+        Insert: {
+          age?: number | null
+          breed?: string | null
+          color?: string | null
+          created_at?: string | null
+          gender?: string | null
+          id?: string
+          medical_notes?: string | null
+          name: string
+          owner_address?: string | null
+          owner_email?: string | null
+          owner_name: string
+          owner_phone: string
+          species: string
+          updated_at?: string | null
+          vaccination_status?: string | null
+          weight?: number | null
+        }
+        Update: {
+          age?: number | null
+          breed?: string | null
+          color?: string | null
+          created_at?: string | null
+          gender?: string | null
+          id?: string
+          medical_notes?: string | null
+          name?: string
+          owner_address?: string | null
+          owner_email?: string | null
+          owner_name?: string
+          owner_phone?: string
+          species?: string
+          updated_at?: string | null
+          vaccination_status?: string | null
+          weight?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
