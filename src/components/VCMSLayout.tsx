@@ -34,7 +34,7 @@ const roleEmojis = {
 };
 
 export function VCMSLayout({ children }: VCMSLayoutProps) {
-  const { user, profile, signOut } = useAuth();
+  const { user, profile, userRoles, signOut } = useAuth();
 
   const handleSignOut = async () => {
     await signOut();
@@ -66,10 +66,10 @@ export function VCMSLayout({ children }: VCMSLayoutProps) {
             
             {/* Header actions */}
             <div className="flex items-center gap-4">
-              {profile && (
+              {userRoles.length > 0 && (
                 <Badge variant="secondary" className="hidden sm:flex gap-1">
-                  <span>{roleEmojis[profile.role]}</span>
-                  <span className="capitalize">{profile.role}</span>
+                  <span>{roleEmojis[userRoles[0] as keyof typeof roleEmojis]}</span>
+                  <span className="capitalize">{userRoles[0]}</span>
                 </Badge>
               )}
               
@@ -78,7 +78,7 @@ export function VCMSLayout({ children }: VCMSLayoutProps) {
                   <Button variant="ghost" className="relative h-10 w-10 rounded-full hover-scale">
                     <Avatar className="h-9 w-9">
                       <AvatarImage src={profile?.avatar_url} alt={profile?.full_name} />
-                      <AvatarFallback className={`text-white ${roleColors[profile?.role || 'doctor']}`}>
+                      <AvatarFallback className={`text-white ${roleColors[(userRoles[0] as keyof typeof roleColors) || 'doctor']}`}>
                         {profile?.full_name ? getInitials(profile.full_name) : 'U'}
                       </AvatarFallback>
                     </Avatar>

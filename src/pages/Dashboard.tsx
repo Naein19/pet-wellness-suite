@@ -405,7 +405,7 @@ const AccountantDashboard = () => (
 );
 
 export default function Dashboard() {
-  const { profile } = useAuth();
+  const { profile, userRoles } = useAuth();
 
   if (!profile) {
     return (
@@ -419,7 +419,8 @@ export default function Dashboard() {
   }
 
   const renderDashboard = () => {
-    switch (profile.role) {
+    const primaryRole = userRoles[0];
+    switch (primaryRole) {
       case 'admin':
         return <AdminDashboard />;
       case 'doctor':

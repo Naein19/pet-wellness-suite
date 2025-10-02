@@ -13,12 +13,15 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Heart, User } from "lucide-react";
+import { patientFormSchema, type PatientFormData } from "@/lib/validation";
+import { useToast } from "@/hooks/use-toast";
 
 interface PatientFormProps {
   onSave: () => void;
 }
 
 export function PatientForm({ onSave }: PatientFormProps) {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     // Patient Information
     patientName: "",
@@ -46,8 +49,21 @@ export function PatientForm({ onSave }: PatientFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would normally save to database/API
-    console.log("Saving patient:", formData);
+    
+    // Validate form data
+    const validation = patientFormSchema.safeParse(formData);
+    
+    if (!validation.success) {
+      const firstError = validation.error.errors[0];
+      toast({
+        title: "Validation Error",
+        description: firstError.message,
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Here you would save to database/API
     onSave();
   };
 

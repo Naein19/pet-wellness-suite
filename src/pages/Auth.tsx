@@ -14,7 +14,6 @@ const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
-  const [role, setRole] = useState('receptionist');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -71,7 +70,6 @@ const Auth = () => {
           emailRedirectTo: `${window.location.origin}/dashboard`,
           data: {
             full_name: fullName,
-            role: role,
           }
         }
       });
@@ -155,22 +153,6 @@ const Auth = () => {
               />
             </div>
 
-            {!isLogin && (
-              <div className="space-y-2">
-                <Label htmlFor="role">Your Role</Label>
-                <Select value={role} onValueChange={setRole}>
-                  <SelectTrigger className="animate-scale-in">
-                    <SelectValue placeholder="Select your role" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="admin">👑 Admin (Boss)</SelectItem>
-                    <SelectItem value="doctor">👨‍⚕️ Doctor</SelectItem>
-                    <SelectItem value="receptionist">🏥 Receptionist</SelectItem>
-                    <SelectItem value="accountant">💰 Accountant</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            )}
 
             <Button
               type="submit"
